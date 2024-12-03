@@ -25,7 +25,7 @@ local function ts_organize_imports()
     vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.api.nvim_buf_get_name(0)}})
 end
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     init_options = {
