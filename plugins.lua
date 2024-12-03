@@ -48,7 +48,7 @@ local plugins = {
                 "tailwindcss-language-server",
                 "eslint-lsp",
 
-                "prettierd",
+                "prettier",
 
                 "graphql-language-service-cli",
             },
@@ -86,8 +86,29 @@ local plugins = {
     },
     {
         "mfussenegger/nvim-dap",
-        init = function ()
-            require("core.utils").load_mappings("dap")
+        config = function ()
+            require "custom.configs.dap"
+        end
+    },
+    {
+        "rcarriga/nvim-dap-ui",
+        event = "VeryLazy",
+        dependencies = "mfussenegger/nvim-dap",
+        config = function ()
+            local dap = require("dap")
+            local dapui = require("dapui")
+            require("dapui").setup()
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+
+            dap.listeners.before.event_exited["dapui_config"] = function ()
+                dapui.close()
+            end
         end
     },
     {
@@ -142,7 +163,7 @@ local plugins = {
         config = function()
             require('tiny-inline-diagnostic').setup()
         end
-    }
+    },
 }
 
 return plugins
