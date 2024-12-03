@@ -21,6 +21,24 @@ lspconfig.gopls.setup {
   }
 }
 
+lspconfig.yamlls.setup {
+    on_attach = function (client, bufnr)
+        client.server_capabilities.documentFormattingProvider = true
+        on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+    settings = {
+        yaml = {
+            format = {
+                enable = true,
+            },
+            schemaStore = {
+                enable = true,
+            },
+        }
+    }
+}
+
 local function ts_organize_imports()
     vim.lsp.buf.execute_command({command = "_typescript.organizeImports", arguments = {vim.api.nvim_buf_get_name(0)}})
 end

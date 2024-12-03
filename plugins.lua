@@ -39,7 +39,7 @@ local plugins = {
     {
         "willamboman/mason.nvim",
         opts = {
-            ensre_installed = {
+            ensure_installed = {
                 "gopls",
 
                 "pyright",
@@ -51,6 +51,8 @@ local plugins = {
                 "prettier",
 
                 "graphql-language-service-cli",
+
+                "yaml-language-server",
             },
         }
     },
